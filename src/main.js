@@ -1,15 +1,28 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import App from './App';
-import router from './router';
+import Vue from 'vue'
+import VueRouter from 'vue-router';
+import App from './App.vue';
 
-Vue.config.productionTip = false;
+import jQuery from 'jquery';
+import 'popper.js';
+import 'bootstrap';
+import axios from 'axios'
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App },
+import {  routes  } from './router';
+
+window.$ = jQuery;
+
+Vue.use(VueRouter);
+
+axios.defaults.baseURL = 'http://slimapi' 
+//axios.defaults.headers.get['Accepts'] = 'application/json'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+
+const router =  new VueRouter({
+  routes,
+  mode: 'history'
 });
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount("#app");
